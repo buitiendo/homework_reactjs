@@ -23,6 +23,10 @@ h2 {
   box-sizing: border-box;
 }
 
+.errorMessage {
+  color: red;
+}
+
 .saveButton{
   display: inline-block;
   color: #ccc;

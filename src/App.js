@@ -1,5 +1,11 @@
 import React, {Component} from 'react'
 import { Container, Row, Col } from 'react-grid-system';
+
+
+const emailRegex = RegExp(
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+);
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -8,6 +14,12 @@ class App extends Component {
       act: 0,
       index: '',
       key: '',
+      name: null,
+      email: null,
+      formErrors: {
+        name: "",
+        email: "",
+      },
       hover: false,
       isEdited: false,
       datas: JSON.parse(localStorage.getItem('datas')) || [],
@@ -96,13 +108,38 @@ class App extends Component {
       hover: false,
       key: i
     });
-  }  
+  }
+
+  handleChange = e => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    let formErrors = { ...this.state.formErrors };
+
+    switch (name) {
+      case "name":
+        formErrors.name =
+          value.length < 6 ? "minimum 6 characters required" : "";
+        break;
+      case "email":
+        formErrors.email = emailRegex.test(value)
+          ? ""
+          : "invalid email address";
+        break;
+      default:
+        break;
+    }
+
+    this.setState({ formErrors, [name]: value });
+  };
+
 
   render() {
     let datas = this.state.datas;
+    console.log(this.refs.name)
+    const { formErrors } = this.state;
     return (
       <div className="App">
-        <h2 className="">Header</h2>
+        <h2>Header</h2>
         <Container>
           <Row>
             <Col xs={6} className="left_content">
@@ -142,10 +179,38 @@ class App extends Component {
             </Col>
             <Col xs={6}>
               <form ref="myForm" className="myForm">
-                <input type="text" ref="name" placeholder="name" className="formField" />
-                <input type="text" ref="email" placeholder="email" className="formField" />
-                <button onClick={(e)=>this.fSubmit(e)} className="saveButton">Save</button>
-                <button onClick={()=>this.fCancel} className="cancelButton">Cancel</button>
+                <div>
+                  <input
+                    className="formField"
+                    placeholder="Name"
+                    type="text"
+                    ref="name"
+                    name="name"
+                    noValidate
+                    onChange={this.handleChange}
+                  />
+                  {formErrors.name.length > 0 && (
+                    <span className="errorMessage">{formErrors.name}</span>
+                  )}
+                  <input
+                    className="formField"
+                    placeholder="Email"
+                    type="email"
+                    name="email"
+                    ref="email"
+                    noValidate
+                    onChange={this.handleChange}
+                  />
+                  {formErrors.email.length > 0 && (
+                    <span className="errorMessage">{formErrors.email}</span>
+                  )}
+                </div>
+                { (formErrors.name.length === 0 &&  formErrors.email.length === 0) && (!this.state.name === null) ?
+                  <div>
+                    <button onClick={(e)=>this.fSubmit(e)} className="saveButton">Save</button>
+                    <button onClick={(e)=>this.fCancel(e)} className="cancelButton">Cancel</button>
+                  </div>
+                : null }
               </form>
             </Col>
           </Row>

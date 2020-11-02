@@ -1,0 +1,95 @@
+.App {
+  text-align: center;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.custom-button td:first-child,
+.custom-button td:nth-child(4),
+.custom-button td:nth-child(5) {
+  width: 10%;
+}
+
+.custom-button td:nth-child(2),
+.custom-button td:nth-child(3) {
+  width: 35%;
+}
+
+.error {
+  color: red
+}
+
+.formField{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.errorMessage {
+  color: red;
+}
+
+.saveButton{
+  display: inline-block;
+  color: #ccc;
+  background-color: blue;
+  height: auto;
+  width: auto;
+  border-radius: 7px;
+  margin: 3px 5px;
+}
+
+.editButton{
+  display: inline-block;
+  color: #ccc;
+  background-color: blue;
+  height: auto;
+  width: auto;
+  border-radius: 7px;
+  margin: 3px 5px;
+}
+
+.removeButton{
+  display: inline-block;
+  color: #ccc;
+  background-color: red;
+  border-radius: 7px;
+  margin: 3px 5px;
+}
+
+.cancelButton{
+  display: inline-block;
+  color: black;
+  background-color: white;
+  height: auto;
+  width: auto;
+  border-radius: 7px;
+  margin: 3px 5px;
+}
